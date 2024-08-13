@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { resolve } from "path";
 import React from "react";
 
@@ -23,7 +24,15 @@ const Tours = async () => {
     <section>
       <h1 className="text-3xl mb-2">Tours</h1>
       {tours?.map((tour: Tour) => {
-        return <h2 key={tour.id}>{tour.name}</h2>;
+        return (
+          <Link
+            key={tour.id}
+            href={`tours/${tour.id}`}
+            className=" hover:text-blue-500"
+          >
+            <h2>{tour.name}</h2>
+          </Link>
+        );
       })}
     </section>
   );

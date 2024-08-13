@@ -32,3 +32,7 @@ const Tours = async () => {
 Just use async await on the server component function
 
 Next Js is super aggresive on cashing stuff
+
+// Next Image Component
+https://www.pexels.com/photo/assorted-map-pieces-2859169/
+
