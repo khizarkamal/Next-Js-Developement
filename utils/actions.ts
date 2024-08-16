@@ -19,7 +19,7 @@ export const createUserAction = async (prevState: any, formData: FormData) => {
     const users = await fetchUsers();
     users.push(newUser);
     writeFile("users.json", JSON.stringify(users));
-    revalidatePath("/action");
+    revalidatePath("/actions");
     return "User Created Successfully";
   } catch (error) {
     console.log("Error--", error);
@@ -42,8 +42,16 @@ export const createUserAction = async (prevState: any, formData: FormData) => {
 };
 
 export const fetchUsers = async (): Promise<User[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   const result = await readFile("users.json", { encoding: "utf-8" });
   const users = result ? JSON.parse(result) : [];
   return users;
+};
+
+export const deleteUserAction = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const users = await fetchUsers();
+  const updatedUsers = users.filter((user) => user.id !== id);
+  writeFile("users.json", JSON.stringify(updatedUsers));
+  revalidatePath("/actions");
 };
