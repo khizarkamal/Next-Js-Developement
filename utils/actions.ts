@@ -10,14 +10,21 @@ type User = {
   lastName: string;
 };
 
-export const createUserAction = async (formData: FormData) => {
+export const createUserAction = async (prevState: any, formData: FormData) => {
   // Type assertion manually other wise it can be null
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
   const newUser: User = { firstName, lastName, id: Date.now().toString() };
-  const users = await fetchUsers();
-  users.push(newUser);
-  writeFile("users.json", JSON.stringify(users));
+  try {
+    const users = await fetchUsers();
+    users.push(newUser);
+    writeFile("users.json", JSON.stringify(users));
+    revalidatePath("/action");
+    return "User Created Successfully";
+  } catch (error) {
+    console.log("Error--", error);
+    return "Something went wrong";
+  }
 
   //   console.log("Create User action from utils/actions");
   //   console.log("First Name ", firstName);
@@ -27,7 +34,7 @@ export const createUserAction = async (formData: FormData) => {
   //   console.log("Raw Data--", rawData);
 
   // Revalidating Path to show the latest data
-  revalidatePath("/action");
+  // revalidatePath("/action");
   // OR we can use redirct
   // redirect("/");
   // One Thing to keep in mind in not to place redirect in try catch block

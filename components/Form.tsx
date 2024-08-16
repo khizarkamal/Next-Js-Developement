@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createUserAction } from "@/utils/actions";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 // In Order to add interactivity such as loading sign when for is submitting or
 // success or error state we have to convert it into client component
@@ -27,8 +27,9 @@ const Button = () => {
 };
 
 const Form = () => {
+  const [message, formAction] = useFormState(createUserAction, null);
   return (
-    <form action={createUserAction} className={formStyle}>
+    <form action={formAction} className={formStyle}>
       <h1 className=" capitalize text-3xl mb-4">create user</h1>
       <input
         className={inputStyle}
@@ -45,6 +46,7 @@ const Form = () => {
         defaultValue={"Doe"}
       />
       <Button />
+      {message && <p>{message}</p>}
     </form>
   );
 };
