@@ -72,3 +72,24 @@ const createUser = async () => {
   "use server";
   console.log("Server Action");
 };
+
+While we add some new data using server actions we see something unusual that is the changes 
+are not reflected immeditely 
+The reason is that Next Js is super aggressively cashing all our resources because it 
+increases load time
+
+two options
+
+1- revalidate path 
+2- redirect
+
+Make sure imorts are correct
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+  // Revalidating Path to show the latest data
+  // revalidatePath("/action");
+  // OR we can use redirct
+  redirect("/");
+  // One Thing to keep in mind in not to place redirect in try catch block the reason to not include is 
+  that it will also trigger the catch block
