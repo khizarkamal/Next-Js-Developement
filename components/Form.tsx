@@ -1,13 +1,14 @@
 import React from "react";
+import { createUserAction } from "@/utils/actions";
 
-const createUser = async () => {
-  "use server";
-  console.log("Server Action");
-};
+// const createUser = async () => {
+//   "use server";
+//   console.log("Server Action");
+// };
 
 const Form = () => {
   return (
-    <form action={createUser} className={formStyle}>
+    <form action={createUserAction} className={formStyle}>
       <h1 className=" capitalize text-3xl mb-4">create user</h1>
       <input
         className={inputStyle}
