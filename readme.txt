@@ -93,3 +93,13 @@ import { redirect } from "next/navigation";
   redirect("/");
   // One Thing to keep in mind in not to place redirect in try catch block the reason to not include is 
   that it will also trigger the catch block
+
+
+
+useFormStatus vs useFormState
+
+// useFormStatus provide the status information last form submission 
+// An important point to remember is that it should be rendered inside a component that is 
+// inside a form
+
+

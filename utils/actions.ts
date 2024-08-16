@@ -27,14 +27,15 @@ export const createUserAction = async (formData: FormData) => {
   //   console.log("Raw Data--", rawData);
 
   // Revalidating Path to show the latest data
-  // revalidatePath("/action");
+  revalidatePath("/action");
   // OR we can use redirct
-  redirect("/");
+  // redirect("/");
   // One Thing to keep in mind in not to place redirect in try catch block
   // the reason to not include is that it will also trigger the catch block
 };
 
 export const fetchUsers = async (): Promise<User[]> => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const result = await readFile("users.json", { encoding: "utf-8" });
   const users = result ? JSON.parse(result) : [];
   return users;

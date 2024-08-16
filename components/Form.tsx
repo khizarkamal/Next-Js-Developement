@@ -1,10 +1,30 @@
+"use client";
+
 import React from "react";
 import { createUserAction } from "@/utils/actions";
+import { useFormStatus } from "react-dom";
+
+// In Order to add interactivity such as loading sign when for is submitting or
+// success or error state we have to convert it into client component
 
 // const createUser = async () => {
 //   "use server";
 //   console.log("Server Action");
 // };
+
+// useFormStatus provide the status information last form submission
+// An important point to remember is that it should be presnet inside a component that is
+// inside a form
+
+const Button = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <button disabled={pending} className={btnStyle} type="submit">
+      {pending ? "Submitting..." : "Create User"}
+    </button>
+  );
+};
 
 const Form = () => {
   return (
@@ -24,9 +44,7 @@ const Form = () => {
         required
         defaultValue={"Doe"}
       />
-      <button className={btnStyle} type="submit">
-        Submit
-      </button>
+      <Button />
     </form>
   );
 };
