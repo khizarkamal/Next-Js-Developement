@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { resolve } from "path";
+import Image from "next/image";
 import React from "react";
 
 type Tour = {
@@ -23,17 +23,28 @@ const Tours = async () => {
   return (
     <section>
       <h1 className="text-3xl mb-2">Tours</h1>
-      {tours?.map((tour: Tour) => {
-        return (
-          <Link
-            key={tour.id}
-            href={`tours/${tour.id}`}
-            className=" hover:text-blue-500"
-          >
-            <h2>{tour.name}</h2>
-          </Link>
-        );
-      })}
+      <div className="grid md:grid-cols-2 gap-8 mb-4">
+        {tours?.map((tour: Tour) => {
+          return (
+            <Link
+              key={tour.id}
+              href={`tours/${tour.id}`}
+              className=" hover:text-blue-500"
+            >
+              <div className="relative h-48 mb-2">
+                <Image
+                  className=" object-cover rounded"
+                  src={tour.image}
+                  alt={tour.name}
+                  sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw  "
+                  fill
+                />
+              </div>
+              <h2>{tour.name}</h2>
+            </Link>
+          );
+        })}
+      </div>
     </section>
   );
 };
