@@ -16,9 +16,7 @@ export const createUserAction = async (prevState: any, formData: FormData) => {
   const lastName = formData.get("lastName") as string;
   const newUser: User = { firstName, lastName, id: Date.now().toString() };
   try {
-    const users = await fetchUsers();
-    users.push(newUser);
-    writeFile("users.json", JSON.stringify(users));
+    await saveUser(newUser);
     revalidatePath("/actions");
     return "User Created Successfully";
   } catch (error) {
@@ -39,6 +37,12 @@ export const createUserAction = async (prevState: any, formData: FormData) => {
   // redirect("/");
   // One Thing to keep in mind in not to place redirect in try catch block
   // the reason to not include is that it will also trigger the catch block
+};
+
+export const saveUser = async (user: User) => {
+  const users = await fetchUsers();
+  users.push(user);
+  writeFile("users.json", JSON.stringify(users));
 };
 
 export const fetchUsers = async (): Promise<User[]> => {
